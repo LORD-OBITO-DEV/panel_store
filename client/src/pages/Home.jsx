@@ -1,49 +1,83 @@
-import React, { useEffect, useState } from 'react'
-import PanelCard from '../components/PanelCard'
-import CreatePanel from '../components/CreatePanel'
-import ScrollReveal from 'scrollreveal'
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ScrollReveal from "scrollreveal";
+import "../styles.css";
+import member1 from "../assets/member1.jpg";
+import member2 from "../assets/member2.jpg";
+import member3 from "../assets/member3.jpg";
+import nodejsImg from "../assets/nodejs.png";
+import pythonImg from "../assets/python.png";
+import minecraftImg from "../assets/minecraft.png";
 
-const presets = [
-  { name: 'Panel Node.js', ram: '1 Go', cpu: '40%', disk: '1000 MB', price: 5 },
-  { name: 'Panel Python', ram: '2 Go', cpu: '50%', disk: '2000 MB', price: 7 },
-  { name: 'Minecraft', ram: '4 Go', cpu: '70%', disk: '10000 MB', price: 12 },
-  { name: 'Illimité', ram: '∞', cpu: '∞', disk: '∞', price: 30 }
-]
+export default function Home({ theme }) {
+  const navigate = useNavigate();
 
-export default function Home(){
-  const [selected, setSelected] = useState(null)
+  useEffect(() => {
+    ScrollReveal().reveal(".sr-card", {
+      duration: 1000,
+      distance: "50px",
+      origin: "bottom",
+      easing: "ease-in-out",
+      interval: 200,
+    });
+  }, []);
 
-  useEffect(()=>{
-    ScrollReveal().reveal('[data-sr]', { distance: '20px', duration: 700, easing: 'ease-in-out', interval: 100 })
-  },[])
+  const panels = [
+    { name: "Node.js", img: nodejsImg, type: "nodejs" },
+    { name: "Python", img: pythonImg, type: "python" },
+    { name: "Minecraft", img: minecraftImg, type: "minecraft" },
+  ];
+
+  const members = [
+    { name: "LORD OBITO DEV", role: "Fondateur", img: member1, contact: "https://wa.me/2250712668494" },
+    { name: "Membre 2", role: "Co-Fondateur", img: member2, contact: "mailto:member2@example.com" },
+    { name: "Membre 3", role: "Co-Fondateur", img: member3, contact: "mailto:member3@example.com" },
+  ];
 
   return (
-    <div>
-      <div className="panel-hero">
-        <div className="hero-card" data-sr>
-          <h2>LORD OBITO TECH STORE PANEL</h2>
-          <p className="small">Panels pour Node.js, Python, Minecraft et solutions personnalisées. Choisis ta ressource (1 Go → Illimité) et paye via PayPal.</p>
-        </div>
-        <div style={{width:320}} className="hero-card" data-sr>
-          <h3>Offres rapides</h3>
-          <ul>
-            <li>1 Go — CPU 40% — Disk 1000 MB</li>
-            <li>Options illimitées disponibles</li>
-            <li>Paiement sécurisé via PayPal Business</li>
-          </ul>
-        </div>
-      </div>
+    <div className={`home-container ${theme === "dark" ? "dark-theme" : "light-theme"}`}>
+      <section className="hero">
+        <h1>LORD OBITO TECH STORE PANEL</h1>
+        <p>Créez vos panels facilement et rapidement avec nous 🚀</p>
+      </section>
 
-      <h2 style={{textAlign:'center', marginTop:20}}>Nos panels</h2>
-      <div className="panel-grid">
-        {presets.map(p => (
-          <PanelCard key={p.name} {...p} onOrder={() => setSelected(p)} />
-        ))}
-      </div>
+      <section className="services">
+        <h2>Nos Panels</h2>
+        <div className="cards-container">
+          {panels.map((panel) => (
+            <div className="card sr-card" key={panel.name}>
+              <img src={panel.img} alt={panel.name} />
+              <h3>{panel.name}</h3>
+              <button onClick={() => navigate(`/panels/${panel.type}`)}>Voir panels</button>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <div id="form-target" style={{marginTop:30}}>
-        <CreatePanel preset={selected} />
-      </div>
+      <section className="members">
+        <h2>Membres de LORD OBITO TECH</h2>
+        <div className="cards-container">
+          {members.map((member) => (
+            <div className="card sr-card" key={member.name}>
+              <img src={member.img} alt={member.name} />
+              <h3>{member.name}</h3>
+              <p>{member.role}</p>
+              <a href={member.contact} target="_blank" rel="noopener noreferrer">
+                Contacter
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="trust">
+        <h2>Pourquoi nous faire confiance ?</h2>
+        <ul>
+          <li>Panels sécurisés et fiables</li>
+          <li>Support rapide via WhatsApp</li>
+          <li>Gestion automatique des ressources</li>
+        </ul>
+      </section>
     </div>
-  )
-}
+  );
+              }
