@@ -1,15 +1,49 @@
-import { createPanelUser } from "../utils/ptero.js";
-import { sendPanelEmail } from "../utils/mailer.js";
+import Panel from "../models/Panel.js";
 
-export const createPanel = async (req, res) => {
-  const { username, password, email, plan, duration } = req.body;
-
+/**
+ * Create provisional panel entry in DB (status=pending)
+ * The real Pterodactyl server will be created after payment verification (PayPal capture)
+ */
+export const createPanelController = async (req, res) => {
   try {
-    const panelData = await createPanelUser(username, email, password, plan);
-    await sendPanelEmail(email, panelData);
-    res.json({ success: true, panel: panelData });
+    const { username, password, email, plan, duration, ram, cpu, disk, price } = req.body;
+
+    // validation minimal
+    if (!username || !password || !email || !plan) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
+    const panel = new Panel({
+      type: plan,
+      ownerEmail: email,
+      username,
+      password,
+      ram,
+      cpu,
+      disk,
+      price,
+      duration,
+      status: "pending"
+    });
+
+    await panel.save();
+
+    return res.json({ success: true, panelId: panel._id });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Erreur création du panel" });
+    console.error("createPanelController:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const listPanelsController = async (req, res) => {
+  try {
+    const { type } = req.query;
+    const filter = {};
+    if (type) filter.type = type;
+    const panels = await Panel.find(filter).select("-password").sort({ createdAt: -1 }).lean();
+    res.json({ success: true, panels });
+  } catch (err) {
+    console.error("listPanelsController:", err);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
