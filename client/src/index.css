@@ -1,0 +1,21 @@
+:root{
+  --bg: #0B1F3B;
+  --card: #0E274B;
+  --accent: #1E90FF;
+  --muted: #9fb6d9;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter, Poppins, system-ui, Arial;background:var(--bg);color:#fff}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.header{padding:24px;text-align:center;background:#081732}
+.header h1{margin:0}
+.panel-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;min-width:240px;box-shadow:0 6px 18px rgba(0,0,0,0.4);border:1px solid rgba(30,144,255,0.08);transition:transform .3s}
+.card:hover{transform:translateY(-6px)}
+.btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
+.form input, .form select{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;border:none}
+.footer{background:#081732;padding:20px;margin-top:40px;text-align:center}
+.socials img{width:30px;height:30px;margin:0 8px}
+.small{color:var(--muted);font-size:14px}
+.panel-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:40px 0}
+.hero-card{flex:1;padding:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px}
