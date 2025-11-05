@@ -1,22 +1,27 @@
-import React from 'react'
-import { PayPalButtons } from '@paypal/react-paypal-js'
+import React from "react";
 
-export default function PaymentButton({ price, panelId }){
+export default function PaymentButton({ type, onClick }) {
+  let label = "";
+  switch (type) {
+    case "paypal":
+      label = "Payer avec PayPal";
+      break;
+    case "wave":
+      label = "Payer avec Wave";
+      break;
+    case "orange":
+      label = "Payer avec Orange Money";
+      break;
+    default:
+      label = "Payer";
+  }
+
   return (
-    <div style={{marginTop:12}}>
-      <PayPalButtons
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [{ amount: { value: price.toString() } }]
-          })
-        }}
-        onApprove={async (data, actions) => {
-          const order = await actions.order.capture()
-          // envoi preuve au backend pour création définitive
-          await fetch('/api/paypal/capture', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ orderID: order.id, panelId }) })
-          window.location.href = '/success'
-        }}
-      />
-    </div>
-  )
+    <button
+      className={`payment-button ${type}`}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
 }
