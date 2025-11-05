@@ -1,0 +1,32 @@
+.checkout-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.checkout-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.payment-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.payment-button.paypal { background-color: #003087; color: white; }
+.payment-button.wave { background-color: #f58220; color: white; }
+.payment-button.orange { background-color: #ff7f00; color: white; }
+
+.payment-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.payment-button:hover {
+  opacity: 0.85;
+}
