@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PaymentButton from './PaymentButton'
+import PaymentButton from './PaymenttButton'
 
 export default function CreatePanel({ preset }){
   const [username, setUsername] = useState('')
