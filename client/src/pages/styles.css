@@ -1,32 +1,254 @@
+/* ---------- Variables globales ---------- */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #0b0b15;
+  --accent-color: #00c6ff;
+  --text-color: #fff;
+  --light-bg: #f5f6fa;
+  --dark-bg: #0b0b15;
+  --card-dark: #111827;
+  --card-light: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --radius: 15px;
+  --transition: 0.3s ease;
+}
+
+/* ---------- Reset ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: var(--transition);
+}
+
+/* Thème clair */
+body.light {
+  background-color: var(--light-bg);
+  color: #333;
+}
+
+/* ---------- Header ---------- */
+header {
+  background: linear-gradient(90deg, var(--secondary-color), #001f3f);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #ccc;
+  transition: var(--transition);
+}
+
+header nav a:hover {
+  color: var(--accent-color);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #bbb;
+}
+
+/* ---------- Section Panels ---------- */
+.panels-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 3rem 5%;
+}
+
+.card {
+  background-color: var(--card-dark);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+body.light .card {
+  background-color: var(--card-light);
+  color: #000;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #aaa;
+}
+
+.card button {
+  background-color: var(--accent-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.card button:hover {
+  background-color: var(--primary-color);
+}
+
+/* ---------- Checkout ---------- */
 .checkout-container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 3rem auto;
   padding: 2rem;
+  background: var(--card-dark);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+body.light .checkout-container {
+  background: var(--card-light);
+  color: #000;
 }
 
 .checkout-form label {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
 }
 
+.checkout-form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: transparent;
+  color: white;
+}
+
+body.light .checkout-form input {
+  color: #000;
+  border: 1px solid #ddd;
+}
+
+/* ---------- Payment Buttons ---------- */
 .payment-buttons {
   display: flex;
+  justify-content: center;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
-
-.payment-button.paypal { background-color: #003087; color: white; }
-.payment-button.wave { background-color: #f58220; color: white; }
-.payment-button.orange { background-color: #ff7f00; color: white; }
 
 .payment-button {
   padding: 0.8rem 1.5rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
   font-weight: bold;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: var(--transition);
+}
+
+.payment-button.paypal {
+  background: #003087;
+}
+
+.payment-button.wave {
+  background: #f58220;
+}
+
+.payment-button.orange {
+  background: #ff7f00;
 }
 
 .payment-button:hover {
   opacity: 0.85;
+}
+
+/* ---------- Membres Section ---------- */
+.members-section {
+  padding: 3rem 5%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent);
+}
+
+.members-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.member-card {
+  background: var(--card-dark);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+  width: 250px;
+  box-shadow: var(--shadow);
+}
+
+.member-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member-card h4 {
+  margin-top: 1rem;
+  color: var(--accent-color);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  background: #0a0a14;
+  color: #aaa;
+}
+
+footer a {
+  color: var(--accent-color);
+  text-decoration: none;
 }
