@@ -2,30 +2,37 @@ import express from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
 
+// --- Config .env ---
 dotenv.config();
 
+// --- ESModule __dirname ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// --- Express ---
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Middleware
+// --- Middleware ---
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // --- Routes API existantes ---
-import panelRoutes from './routes/panelRoutes.js'; // exemple
+import panelRoutes from './routes/panelRoutes.js';
 app.use('/api/panels', panelRoutes);
 
-// --- Servir le build React ---
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, './client/build')));
+// --- Servir React build ---
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-// Si aucune route API n'est matchée, renvoyer React
+// Toutes les routes non-API renvoient React
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
+// --- Démarrage serveur ---
 app.listen(PORT, () => {
   console.log(`LORD OBITO TECH STORE PANEL API is running on port ${PORT}`);
 });
