@@ -1,8 +1,9 @@
 import express from "express";
-import { createOrder, captureOrder } from "../controllers/paypalController.js";
+import { createOrderController, captureOrderController } from "../controllers/paypalController.js";
 
 const router = express.Router();
-router.post("/create", createOrder);
-router.post("/capture", captureOrder);
+
+router.post("/create", createOrderController);
+router.post("/capture", captureOrderController);
 
 export default router;
