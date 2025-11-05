@@ -1,16 +1,20 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import PanelList from "./pages/PanelList";
+import Checkout from "./pages/Checkout";
 
-export default function App(){
+function App() {
+  const [theme, setTheme] = React.useState("dark"); // ou "light"
+
   return (
-    <div>
-      <Header />
-      <div className="container">
-        <Outlet />
-      </div>
-      <Footer />
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home theme={theme} />} />
+        <Route path="/panels/:type" element={<PanelList theme={theme} />} />
+        <Route path="/checkout" element={<Checkout theme={theme} />} />
+      </Routes>
+    </Router>
+  );
 }
+
+export default App;
