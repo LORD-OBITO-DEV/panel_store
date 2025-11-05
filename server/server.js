@@ -19,7 +19,7 @@ app.use('/api/panels', panelRoutes);
 
 // --- Servir le build React ---
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 
 // Si aucune route API n'est matchée, renvoyer React
 app.get('*', (req, res) => {
